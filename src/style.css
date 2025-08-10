@@ -1,0 +1,164 @@
+/* ===========================
+   Tema (light / dark)
+   =========================== */
+:root{
+  --bg:#f6f7fb; --panel:#fff; --panel-2:#f2f4f8; --text:#0f172a; --muted:#5b6b82;
+  --border:#e5e7eb; --brand:#0ea5a6; --brand-2:#0d9488; --ring:rgba(14,165,166,.22);
+  --radius:14px;
+}
+:root[data-theme="dark"]{
+  --bg:#0b0f14; --panel:#0f141c; --panel-2:#0b1118; --text:#dbe4ee; --muted:#9fb0c0;
+  --border:#1f2a37; --brand:#2dd4bf; --brand-2:#14b8a6; --ring:rgba(45,212,191,.25);
+}
+
+/* ===========================
+   Base
+   =========================== */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:15px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+::selection{ background:var(--ring) }
+.container{ max-width:1100px; margin:18px auto; padding:0 12px }
+
+/* Header */
+.header{ display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center; justify-content:space-between }
+.title h1{ margin:0; font-size:22px; letter-spacing:.2px }
+.title p{ margin:4px 0 0; color:var(--muted); font-size:13px }
+
+/* Controles */
+.toolbar{
+  display:grid; gap:8px; grid-template-columns:1fr 1fr; width:100%; max-width:360px; margin-left:auto;
+}
+@media (min-width:640px){ .toolbar{ display:flex; gap:10px; width:auto; max-width:none } }
+select,button{
+  appearance:none; -webkit-tap-highlight-color:transparent;
+  border:1px solid var(--border); background:var(--panel); color:var(--text);
+  padding:9px 12px; border-radius:12px; cursor:pointer; white-space:nowrap;
+}
+button.outline{ background:transparent; border:1px solid var(--border) }
+button.brand{ background:var(--brand); color:#fff; border:none }
+button:focus,select:focus{ outline:none; box-shadow:0 0 0 4px var(--ring) }
+
+/* ===========================
+   Acordeón (desktop/centrado)
+   =========================== */
+.accordion{ display:grid; gap:10px }
+.accordion .toolbar{
+  display:grid; gap:8px; grid-template-columns:1fr 1fr; padding:4px 2px 0; width:100%; max-width:360px;
+}
+@media (min-width:560px){ .accordion .toolbar{ display:flex; gap:8px; max-width:none; width:auto } }
+
+details{
+  display:block; border:1px solid var(--border); border-radius:var(--radius);
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  width:max-content; max-width:calc(100vw - 24px); margin:0 auto; overflow:hidden;
+}
+summary{
+  list-style:none; user-select:none; position:relative;
+  padding:12px 44px 12px 12px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+summary::-webkit-details-marker{ display:none }
+summary .left{ display:flex; gap:10px; align-items:baseline; max-width:100% }
+.badge{ background:var(--brand); color:#fff; border-radius:999px; padding:2px 8px; font-size:12px; line-height:1.6 }
+.chev{ position:absolute; right:10px; top:50%; translate:0 -50%; font-size:18px; opacity:.7 }
+details[open] .chev{ rotate:180deg }
+
+/* ===========================
+   Tabla (desktop/normal)
+   =========================== */
+.center-table{ display:grid; justify-content:center; padding: 6px 8px 12px }
+.table-wrap{
+  border:1px solid var(--border); border-radius:12px; overflow:auto; background:transparent;
+  width:max-content; max-width:calc(100vw - 40px); margin-inline:auto;
+}
+table{
+  width:max-content; min-width:min(640px,92vw);
+  border-collapse:collapse; font-variant-numeric:tabular-nums;
+}
+th,td{ padding:10px 14px; text-align:left; white-space:nowrap }
+thead th{ position:sticky; top:0; z-index:1; background:var(--panel-2); border-bottom:1px solid var(--border) }
+tbody tr:nth-child(odd){ background:rgba(0,0,0,.03) }
+:root[data-theme="dark"] tbody tr:nth-child(odd){ background:#0e161e }
+tbody tr:hover{ background:rgba(0,0,0,.05) }
+:root[data-theme="dark"] tbody tr:hover{ background:#0f1a22 }
+
+/* ===========================
+   MÓVIL NORMAL (361–560px): mismo look, full-width
+   =========================== */
+@media (max-width:560px){
+  .container{ padding:8px }
+  .title h1{ font-size:20px }
+
+  .header .toolbar, .accordion .toolbar{ display:grid; grid-template-columns:1fr; width:100%; max-width:none }
+  .toolbar select, .toolbar button{ width:100%; padding:10px 12px }
+
+  details{ width:100% !important; max-width:none !important; border-radius:12px }
+  summary .left small{ white-space:normal }
+
+  .center-table{ display:block; padding:6px }
+  .table-wrap{ width:100% !important; max-width:100% !important; margin-inline:0 }
+  table{ width:100% !important; min-width:0 !important }
+}
+
+/* ===========================
+   TAMAÑO MÁS CHICO (≤360px): solo aquí se achica
+   =========================== */
+@media (max-width:360px){
+  .title h1{ font-size:18px; line-height:1.2 }
+  .title p{ font-size:12px }
+
+  summary{ padding:10px 38px 10px 10px }
+  .badge{ font-size:11px; padding:2px 8px }
+  .chev{ right:8px }
+
+  table{ table-layout: fixed }           /* columnas distribuidas */
+  th,td{
+    padding:8px 10px;                    /* menos padding */
+    overflow:hidden; text-overflow:ellipsis;
+    font-size:14px;                      /* tipografía más chica */
+  }
+
+  /* la pill no ocupa espacio de layout */
+  tbody tr{ position:relative }
+  .is-highlight .flag{
+    position:absolute; right:8px; top:6px; margin:0;
+    font-size:10px; padding:2px 6px; line-height:1.4; white-space:nowrap; z-index:2;
+  }
+
+  /* opcional: oculta el subtítulo si no entra */
+  summary .left small{ display:none }
+}
+
+/* ===========================
+   Highlight + Pills + Tooltip
+   =========================== */
+.is-highlight{
+  position:relative;
+  background:linear-gradient(90deg,var(--ring),transparent) !important;
+  outline:2px solid var(--brand); outline-offset:0; box-shadow:inset 3px 0 0 0 var(--brand);
+}
+.flag{
+  display:inline-block; margin-left:8px; padding:2px 8px; border-radius:999px; font-size:11px; line-height:1.6;
+  background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+}
+.flag-current{ background:var(--brand); color:#fff; border-color:transparent }
+.flag-cycle{ background:transparent; color:var(--brand); border-color:var(--brand);  }
+.flag[data-tip]{ position:relative }
+.flag[data-tip]:hover::after{
+  content:attr(data-tip); position:absolute; left:50%; bottom:calc(100% + 6px); transform:translateX(-50%);
+  white-space:nowrap; background:#000; color:#fff; padding:4px 8px; font-size:11px; border-radius:6px; opacity:.9; pointer-events:none;
+}
+.flag[data-tip]:hover::before{
+  content:''; position:absolute; left:50%; bottom:100%; transform:translateX(-50%);
+  border:6px solid transparent; border-top-color:#000;
+}
+.flag-next{
+  background:transparent;
+  color:var(--muted);
+  border-color: var(--border);
+}
