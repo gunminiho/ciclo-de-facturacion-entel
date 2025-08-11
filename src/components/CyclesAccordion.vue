@@ -58,6 +58,7 @@ function onToggle(e){
         <div class="left">
           <span class="badge">Periodo {{ sec.id }}</span>
           <small style="color:var(--muted)">{{ summaryText }}</small>
+          <small class="badge" >Fecha Pago: {{ sec?.rows[0].vencimiento.getDate().toString() }}</small>
         </div>
         <span class="chev">⌃</span>
       </summary>

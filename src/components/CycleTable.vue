@@ -10,7 +10,7 @@ const props = defineProps({ rows: { type: Array, required: true } })
         <tr>
           <th>Inicio</th>
           <th>Fin</th>
-          <th>Emisión</th>
+          <!-- <th>Emisión</th> -->
           <th>F. Pago</th>
         </tr>
       </thead>
@@ -45,7 +45,7 @@ const props = defineProps({ rows: { type: Array, required: true } })
           </td>
 
           <td :data-label="'Fin'">{{ fmtDM(r.fin) }}</td>
-          <td :data-label="'Emisión'">{{ fmtDM(r.emision) }}</td>
+          <!-- <td :data-label="'Emisión'">{{ fmtDM(r.emision) }}</td> -->
           <td :data-label="'F. Pago'">{{ fmtDM(r.vencimiento) }}</td>
         </tr>
       </tbody>
